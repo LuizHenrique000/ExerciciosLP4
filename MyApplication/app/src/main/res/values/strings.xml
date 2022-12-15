@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="nome">Nome:</string>
+    <string name="primeira_tela">Primeira Tela</string>
+    <string name="segunda_tela">Segunda Tela</string>
+    <string name="clique_aqui">Clique aqui</string>
+    <string name="ir_para_a_segunda_tela">Ir Para A Segunda Tela</string>
+</resources>
