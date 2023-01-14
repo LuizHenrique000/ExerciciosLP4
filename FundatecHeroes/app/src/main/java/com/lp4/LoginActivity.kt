@@ -3,33 +3,41 @@ package com.lp4
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import androidx.activity.viewModels
+import com.lp4.databinding.LoginActivityBinding
+import com.lp4.presentation.LoginViewModel
 
-class LoginActivity : AppCompatActivity() {
+open class LoginActivity : AppCompatActivity() {
+
+    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var binding: LoginActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity)
+        binding = LoginActivityBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val botao_login = findViewById<Button>(R.id.buttom_login)
-        val cadastro = findViewById<TextView>(R.id.novo_por_aqui)
-
-        botao_login.setOnClickListener(){
-            irParaAHome()
+        with(binding){
+           buttomLogin.setOnClickListener(){
+                if (email.text.toString().isNullOrEmpty()){
+                    email.setError("Email Inválido")
+                } else {
+                    irParaAHome()
+                }
+            }
         }
 
-        cadastro.setOnClickListener(){
+        binding.novoPorAqui.setOnClickListener(){
             irParaATelaDeCadastro()
-       }
+        }
     }
 
-    fun irParaAHome(){
-        val telaHome = Intent(this, HomeActivity::class.java)
-        startActivity(telaHome)
+   private fun irParaAHome(){
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
-    fun irParaATelaDeCadastro(){
-        val telaCadastro = Intent(this, ProfileActivity::class.java)
-        startActivity(telaCadastro)
+    private fun irParaATelaDeCadastro(){
+        startActivity(Intent(this, ProfileActivity::class.java))
     }
 }
