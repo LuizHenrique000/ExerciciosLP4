@@ -1,4 +1,4 @@
-package com.lp4
+package com.lp4.profile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
