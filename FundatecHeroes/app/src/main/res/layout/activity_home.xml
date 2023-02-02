@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomeActivity">
+        tools:context=".home.HomeActivity">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tb_navigation"
@@ -23,6 +23,7 @@
             android:id="@+id/tl_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
             app:layout_constraintTop_toBottomOf="@+id/tb_navigation"/>
 
         <androidx.viewpager.widget.ViewPager
@@ -31,7 +32,16 @@
             android:layout_height="0dp"
             android:background="@color/purple_700"
             app:layout_constraintBottom_toBottomOf="@+id/tl_home"
-            app:layout_constraintTop_toBottomOf="@+id/tb_navigation"/>
+            app:layout_constraintTop_toBottomOf="@+id/tb_navigation"
+            />
+
+        <Button
+            android:id="@+id/button_adicionar_heroi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Heroi"
+            app:layout_constraintTop_toBottomOf="@id/vp_home"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

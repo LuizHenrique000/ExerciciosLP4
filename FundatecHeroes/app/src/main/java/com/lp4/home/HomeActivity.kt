@@ -1,11 +1,10 @@
-package com.lp4
+package com.lp4.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.lp4.databinding.ActivityHomeBinding
 import com.lp4.home.view.CharactersFragment
 

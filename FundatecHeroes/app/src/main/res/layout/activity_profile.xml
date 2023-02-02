@@ -15,11 +15,12 @@
 
     <EditText
         android:id="@+id/nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
         android:hint="@string/nome"/>
 
     <EditText

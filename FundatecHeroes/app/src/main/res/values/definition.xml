@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="definitions_array">
+        <item>Heroi</item>
+        <item>Vilão</item>
+        <item>Anti-Heroi</item>
+    </string-array>
+</resources>

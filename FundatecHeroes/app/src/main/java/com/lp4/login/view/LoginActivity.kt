@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.lp4.HomeActivity
+import com.lp4.home.HomeActivity
 import com.lp4.profile.ProfileActivity
 import com.lp4.databinding.LoginActivityBinding
 import com.lp4.login.presentation.LoginViewModel

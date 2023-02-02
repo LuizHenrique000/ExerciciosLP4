@@ -16,12 +16,15 @@
         android:theme="@style/Theme.MeuApp"
         tools:targetApi="31">
         <activity
+            android:name=".NewCharacter"
+            android:exported="false" />
+        <activity
             android:name=".profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
-            android:parentActivityName=".login.view.LoginActivity"
-            android:exported="false" />
+            android:name=".home.HomeActivity"
+            android:exported="false"
+            android:parentActivityName=".login.view.LoginActivity" />
         <activity
             android:name=".login.view.LoginActivity"
             android:exported="true">
