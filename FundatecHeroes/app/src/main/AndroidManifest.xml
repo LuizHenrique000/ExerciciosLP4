@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MeuApp"
         tools:targetApi="31">
         <activity
-            android:name=".character.NewCharacter"
+            android:name=".character.view.NewCharacterActivity"
             android:exported="false" />
         <activity
             android:name=".profile.ProfileActivity"

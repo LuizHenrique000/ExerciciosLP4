@@ -8,8 +8,12 @@ class LoginViewModel : ViewModel() {
     private val state = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = state
 
-    fun validarInputs(email: String?, senha:String?){
+    fun validarInputs(email: String?, senha:String?) {
         if (email.toString().isNullOrEmpty() && senha.toString().isNullOrEmpty()) {
+            state.value = ViewState.ShowError
+        } else if ((email.toString().isEmpty())) {
+            state.value = ViewState.ShowError
+        } else if (senha.toString().isEmpty()) {
             state.value = ViewState.ShowError
         } else {
             state.value = ViewState.ShowSuccess

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.lp4.R
-import com.lp4.character.NewCharacter
+import com.lp4.character.view.NewCharacterActivity
 import com.lp4.databinding.FragmentAntiHeroiBinding
 
 class AntiHeroi : Fragment() {
@@ -28,7 +28,7 @@ class AntiHeroi : Fragment() {
 
         binding.btAdicionarAntiHeroi.setOnClickListener(){
             requireActivity().run {
-                startActivity(Intent(this, NewCharacter::class.java))
+                startActivity(Intent(this, NewCharacterActivity::class.java))
                 finish()
             }
         }
