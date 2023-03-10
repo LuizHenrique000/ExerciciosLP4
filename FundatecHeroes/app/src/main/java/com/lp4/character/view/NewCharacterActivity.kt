@@ -8,11 +8,19 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lp4.character.presentation.NewCharacterViewModel
 import com.lp4.databinding.ActivityNewCharacterBinding
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class NewCharacterActivity : AppCompatActivity() {
 
     private val viewModel: NewCharacterViewModel by viewModels()
     private lateinit var binding: ActivityNewCharacterBinding
+
+    private val moshi by lazy {
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
 
     val comics = arrayOf("Editora","DC","Marvel")
     val type = arrayOf("Tipo","Heroi","Vilão","Anti Heroi")
@@ -24,7 +32,6 @@ class NewCharacterActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.buttonEnviar.setOnClickListener() {
-            salvarDados()
         }
 
         configButtonCriarPersonagem()
@@ -37,11 +44,8 @@ class NewCharacterActivity : AppCompatActivity() {
 
             val spinnerComics = binding.spinnerMarvelDc
             val spinnerType = binding.spinnerHeroiVilao
-
-            val arrayAdapter =
-                ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, comics)
-            val arrayAdapter2 =
-                ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, type)
+            val arrayAdapter = ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, comics)
+            val arrayAdapter2 = ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, type)
             spinnerComics.adapter = arrayAdapter
             spinnerType.adapter = arrayAdapter2
         }
@@ -68,25 +72,13 @@ class NewCharacterActivity : AppCompatActivity() {
         binding.inputLink.setError("Link Inválido")
     }
 
-    private fun salvarDados() {
-        val nome = binding.inputNome.getText().toString();
-        val descricao = binding.inputDescricao.getText().toString();
-        val idade = binding.inputIdade.getText().toString();
-        val data = binding.inputData.getText().toString();
-        val link = binding.inputLink.getText().toString();
-
-        val sharedPref = getSharedPreferences(
-            getString(com.lp4.R.string.preference_file_key), Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
-            putString("nome",nome)
-            putString("descricao", descricao)
-            putString("idade", idade)
-            putString("data", data)
-            putString("link", link)
-            apply()
-        }
-
-    }
+    data class Character(
+        val name: String,
+        val description: String,
+        val age: Int,
+        val date: String,
+        val link: String
+    )
 
 
 }
