@@ -22,7 +22,7 @@ open class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.novoPorAqui.setOnClickListener() {
-            irParaATelaDeCadastro()
+            irPAraTeste()
         }
 
         configLoginButton()
@@ -56,6 +56,10 @@ open class LoginActivity : AppCompatActivity() {
     }
 
     private fun irParaATelaDeCadastro() {
+        startActivity(Intent(this, ProfileActivity::class.java))
+    }
+
+    private fun irPAraTeste() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
 }

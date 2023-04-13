@@ -4,24 +4,23 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.lp4.fragments.AntiHeroi
-import com.lp4.fragments.Heroi
-import com.lp4.fragments.Vilao
+import com.lp4.domain.CategoryType
+import com.lp4.fragments.CharacterFragment
 
 internal class MyAdapter (var context: Context, fm: FragmentManager, var totalTabs: Int): FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when(position){
             0 -> {
-                Heroi()
+                CharacterFragment.newInstance(CategoryType.HERO)
             }
 
             1 -> {
-                Vilao()
+                CharacterFragment.newInstance(CategoryType.VILLAIN)
             }
 
             2 -> {
-                AntiHeroi()
+                CharacterFragment.newInstance(CategoryType.ANTIHERO)
             }
 
             else -> getItem(position)
