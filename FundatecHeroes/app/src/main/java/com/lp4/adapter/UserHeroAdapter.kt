@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lp4.R
-import com.lp4.api.User
+import com.lp4.model.Hero
 
-class UserListAdapter()  : RecyclerView.Adapter<UserViewHolder>()
+class HeroListAdapter()  : RecyclerView.Adapter<UserViewHolder>()
 {
 
-    private val userList: MutableList<User> = mutableListOf();
+    private val heroList: MutableList<Hero> = mutableListOf();
 
-    fun setItems(users: List<User>){
-        userList.clear()
-        userList.addAll(users)
+    fun setItems(heros: List<Hero>){
+        heroList.clear()
+        heroList.addAll(heros)
         notifyDataSetChanged()
     }
 
@@ -26,19 +26,19 @@ class UserListAdapter()  : RecyclerView.Adapter<UserViewHolder>()
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val user = userList[position]
-        holder.bind(user)
+        val hero = heroList[position]
+        holder.bind(hero)
     }
 
-    override fun getItemCount() = userList.size
+    override fun getItemCount() = heroList.size
 }
 
 class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-    private val emailTextView: TextView = itemView.findViewById(R.id.emailTextView)
+    private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
 
-    fun bind(user: User) {
-        nameTextView.text = user.name
-        emailTextView.text = user.email
+    fun bind(hero: Hero) {
+        nameTextView.text = hero.name
+        descriptionTextView.text = hero.description
     }
 }
