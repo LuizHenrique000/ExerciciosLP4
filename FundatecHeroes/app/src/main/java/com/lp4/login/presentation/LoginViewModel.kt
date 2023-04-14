@@ -3,33 +3,23 @@ package com.lp4.login.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lp4.api.hero.HeroClient
-import com.lp4.api.user.UserClient
-import com.lp4.databinding.LoginActivityBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginViewModel : ViewModel() {
-
-    private lateinit var binding: LoginActivityBinding
     private val state = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = state
 
-    fun validarInputs(email: String?, senha: String?) {
-        if (email.isNullOrEmpty() && senha.isNullOrEmpty()) {
+    fun validarInputs(email: String?, senha:String?) {
+        if (email.toString().isNullOrEmpty() && senha.toString().isNullOrEmpty()) {
             state.value = ViewState.ShowError
         } else if ((email.toString().isEmpty())) {
-            state.value = ViewState.ShowErrorEmail
+            state.value = ViewState.ShowError
         } else if (senha.toString().isEmpty()) {
-            state.value = ViewState.ShowErrorPassword
+            state.value = ViewState.ShowError
         } else {
             state.value = ViewState.ShowSuccess
         }
 
     }
-
 }
 
 sealed class ViewState {

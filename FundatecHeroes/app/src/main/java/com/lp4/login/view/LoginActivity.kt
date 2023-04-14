@@ -29,14 +29,12 @@ open class LoginActivity : AppCompatActivity() {
         viewModel.viewState.observe(this) { state ->
             when (state) {
                 is
-                ViewState.ShowError -> {
-                }
-                ViewState.ShowErrorEmail -> mostrarErroEmail()
-                ViewState.ShowErrorPassword -> mostrarErroSenha()
+                ViewState.ShowError -> mostrarErro()
+                ViewState.ShowErrorEmail -> {}
+                ViewState.ShowErrorPassword -> {}
                 ViewState.ShowSuccess -> irParaAHome()
             }
         }
-
     }
 
     private fun configLoginButton() {
@@ -50,14 +48,6 @@ open class LoginActivity : AppCompatActivity() {
 
     private fun mostrarErro() {
         binding.email.setError("Email Inválido")
-        binding.senha.setError("Senha Inválida")
-    }
-
-    private fun mostrarErroEmail() {
-        binding.email.setError("Email Inválido")
-    }
-
-    private fun mostrarErroSenha() {
         binding.senha.setError("Senha Inválida")
     }
 
