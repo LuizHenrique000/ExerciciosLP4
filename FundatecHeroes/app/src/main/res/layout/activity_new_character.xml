@@ -4,98 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintVertical_chainStyle="spread_inside"
+    tools:context=".character.view.NewCharacterActivity">
 
-    tools:context=".character.NewCharacter">
-
- <com.google.android.material.textfield.TextInputLayout
-     android:id="@+id/nome_layout"
-     android:layout_width="0dp"
-     android:layout_height="wrap_content"
-     android:padding="10dp"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent">
-
-  <EditText
-      android:id="@+id/input_nome"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Nome:"
-      android:imeOptions="actionGo"
-      android:inputType="text"
-      />
- </com.google.android.material.textfield.TextInputLayout>
-
- <com.google.android.material.textfield.TextInputLayout
-     android:id="@+id/descricao_layout"
-     android:layout_width="0dp"
-     android:layout_height="wrap_content"
-     android:padding="10dp"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/nome_layout">
-
-      <EditText
-          android:id="@+id/input_descricao"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:inputType="text"
-          android:hint="Descrição:"
-          />
- </com.google.android.material.textfield.TextInputLayout>
-
- <com.google.android.material.textfield.TextInputLayout
-     android:id="@+id/idade_layout"
-     android:layout_width="0dp"
-     android:layout_height="wrap_content"
-     android:padding="10dp"
-     app:layout_constraintEnd_toStartOf="@+id/date_layout"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/descricao_layout">
-
-  <EditText
-      android:id="@+id/input_idade"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Idade:" />
-
- </com.google.android.material.textfield.TextInputLayout>
-
- <com.google.android.material.textfield.TextInputLayout
-     android:id="@+id/date_layout"
-     android:layout_width="0dp"
-     android:layout_height="wrap_content"
-     android:padding="10dp"
-     app:layout_constraintStart_toEndOf="@+id/idade_layout"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/descricao_layout">
-
-  <EditText
-      android:id="@+id/input_data"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Data:" />
-
- </com.google.android.material.textfield.TextInputLayout>
-
- <com.google.android.material.textfield.TextInputLayout
-     android:id="@+id/link_layout"
-     android:layout_width="0dp"
-     android:layout_height="wrap_content"
-     android:padding="10dp"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/idade_layout">
-
-    <EditText
-        android:id="@+id/input_link"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nome_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Link:"
-        app:layout_constraintTop_toBottomOf="@id/input_idade"
-        />
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
- </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/input_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome:"
+            android:imeOptions="actionGo"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descricao_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nome_layout">
+
+        <EditText
+            android:id="@+id/input_descricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descrição:"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idade_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/date_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descricao_layout">
+
+        <EditText
+            android:id="@+id/input_idade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Idade:" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/date_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/idade_layout"
+        app:layout_constraintTop_toBottomOf="@+id/descricao_layout">
+
+        <EditText
+            android:id="@+id/input_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data:" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/link_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idade_layout">
+
+        <EditText
+            android:id="@+id/input_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Link:"
+            app:layout_constraintTop_toBottomOf="@id/input_idade" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/spinner_marvel_dc"
@@ -103,8 +100,7 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:text="DC/Marvel"
-        app:layout_constraintTop_toBottomOf="@id/link_layout"
-        />
+        app:layout_constraintTop_toBottomOf="@id/link_layout" />
 
     <Spinner
         android:id="@+id/spinner_heroi_vilao"
@@ -112,15 +108,15 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:text="Heroi/Vilao"
-        app:layout_constraintTop_toBottomOf="@id/spinner_marvel_dc"
-        />
+        app:layout_constraintTop_toBottomOf="@id/spinner_marvel_dc" />
 
     <Button
         android:id="@+id/button_enviar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/spinner_heroi_vilao"
         android:text="Enviar"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_heroi_vilao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

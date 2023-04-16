@@ -1,10 +1,9 @@
 package com.lp4.api
 
-data class User (
+data class Usuario (
 
     val name: String,
     val email: String,
-    val gender: String,
-    val status: String
+    val password: String
 
     )

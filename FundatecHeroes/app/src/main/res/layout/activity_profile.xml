@@ -4,57 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".profile.ProfileActivity">
 
     <ImageView
         android:id="@+id/imagem_heroi_2"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="230dp"
-        android:src="@drawable/heroi2"
-        tools:layout_editor_absoluteY="16dp" />
+        android:src="@drawable/heroi2" />
 
-    <EditText
-        android:id="@+id/nome"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nome_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/email"
+        android:paddingTop="30dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagem_heroi_2">
 
-        android:hint="@string/nome"/>
+        <EditText
+            android:id="@+id/nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background"
+            android:hint="Nome:"
+            android:imeOptions="actionGo"
+            android:inputType="textEmailAddress">
 
-    <EditText
-        android:id="@+id/email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nome"
-        android:layout_width="match_parent"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Email:"
-        />
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nome_layout">
 
-    <EditText
-        android:id="@+id/senha"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Senha:"/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background"
+            android:hint="Email:"
+            android:imeOptions="actionGo"
+            android:inputType="textEmailAddress">
 
-    <EditText
-        android:id="@+id/confirmar_senha"
-        app:layout_constraintTop_toBottomOf="@+id/senha"
-        android:layout_width="match_parent"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/senha_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Confirmar Senha:"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_layout">
+
+        <EditText
+            android:id="@+id/senha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background"
+            android:hint="Senha:"
+            android:imeOptions="actionGo"
+            android:inputType="textEmailAddress">
+
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/buttom_cadastrar"
-        app:layout_constraintTop_toBottomOf="@+id/confirmar_senha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar"
         android:layout_marginTop="20dp"
+        android:text="Cadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/senha_layout"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,13 @@
 package com.lp4.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.lp4.R
 import com.lp4.adapter.MyAdapter
-import com.lp4.adapter.UserListAdapter
-import com.lp4.api.UserClient
+import com.lp4.character.view.NewCharacterActivity
 import com.lp4.databinding.ActivityHomeBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,8 +20,6 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        val scope = CoroutineScope(Dispatchers.IO)
 
         tabLayout = binding.tlHome
         viewPager = binding.vpHome
@@ -49,23 +41,16 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
-
         })
 
-        scope.launch {
-            val apiClient = UserClient()
-            val users = apiClient.getUsers()
-            withContext(Dispatchers.Main) {
-
-                val recyclerView: RecyclerView = binding.userList
-                val adapter2 = UserListAdapter()
-                recyclerView.adapter = adapter2
-
-                adapter2.setItems(users)
-
-            }
+        binding.btnHome.setOnClickListener {
+            irParaTelaDeCriacaoDeNovoCharacter()
         }
 
+    }
+
+    private fun irParaTelaDeCriacaoDeNovoCharacter() {
+        startActivity(Intent(this, NewCharacterActivity::class.java))
     }
 
 }
