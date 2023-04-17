@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/imagem_heroi"
         android:layout_width="0dp"
         android:layout_height="230dp"
         android:layout_marginTop="44dp"
-        android:src="@drawable/heroi"
         android:orientation="vertical"
+        android:src="@drawable/heroi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,8 +21,8 @@
         android:id="@+id/email_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
         android:paddingLeft="10dp"
+        android:paddingTop="30dp"
         android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +32,9 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background"
             android:hint="@string/email"
             android:imeOptions="actionGo"
-            android:background="@color/cardview_dark_background"
             android:inputType="textEmailAddress">
 
         </EditText>
@@ -45,7 +44,7 @@
         android:id="@+id/senha_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-       android:padding="10dp"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_layout">
@@ -54,35 +53,35 @@
             android:id="@+id/senha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/senha"
-            android:textColor="@color/white"
-            android:imeOptions="actionDone"
             android:background="@color/cardview_dark_background"
-            android:inputType="textPassword">
+            android:hint="@string/senha"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:textColor="@color/white">
 
         </EditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/buttom_login"
-        app:layout_constraintTop_toBottomOf="@+id/senha_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"/>
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/senha_layout" />
 
     <TextView
         android:id="@+id/novo_por_aqui"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/buttom_login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
         android:paddingTop="10dp"
-        android:textStyle="bold"
+        android:text="Novo por aqui?"
+        android:textColor="@color/white"
         android:textSize="20dp"
-        android:text="Novo por aqui?"/>
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttom_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
