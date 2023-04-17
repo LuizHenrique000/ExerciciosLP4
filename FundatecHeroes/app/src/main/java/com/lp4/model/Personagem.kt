@@ -1,5 +1,7 @@
 package com.lp4.model
 
+import java.time.LocalDateTime
+
 data class Personagem (
 
     val name: String,
@@ -7,6 +9,7 @@ data class Personagem (
     val image: String,
     val universeType: String,
     val characterType: String,
-    val age: String
+    val age: Double,
+    val date: String
 
 )

@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.gson.Gson
-import com.lp4.api.Usuario
+import com.lp4.model.Usuario
 import com.lp4.api.UsuarioClient
 import com.lp4.databinding.ActivityProfileBinding
 import com.lp4.login.view.LoginActivity

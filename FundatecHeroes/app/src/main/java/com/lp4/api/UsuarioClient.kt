@@ -1,8 +1,12 @@
 package com.lp4.api
 
+import android.content.Context
+import com.google.gson.Gson
+import com.lp4.BuildConfig
+import com.lp4.model.Usuario
+import com.lp4.model.UsuarioResponse
+import com.lp4.webservice.RetrofitCLient
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -11,25 +15,19 @@ import retrofit2.http.Query
 class UsuarioClient {
 
     fun getUser(email: String, password: String): UsuarioResponse? {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://fundatec.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(UserService::class.java)
-        val call = service.getUser(email, password)
-        return call.execute().body()
+        return RetrofitCLient.getRetrofit()
+            .create(UserService::class.java)
+            .getUser(email, password)
+            .execute()
+            .body()
     }
 
     fun createUser(user: Usuario): UsuarioResponse? {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://fundatec.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(UserService::class.java)
-        val call = service.createUser(user)
-        return call.execute().body()
+        return RetrofitCLient.getRetrofit()
+            .create(UserService::class.java)
+            .createUser(user)
+            .execute()
+            .body()
     }
 
     interface UserService {
@@ -43,7 +41,5 @@ class UsuarioClient {
         fun createUser(
             @Body usuario: Usuario
         ): Call<UsuarioResponse>
-
     }
-
 }

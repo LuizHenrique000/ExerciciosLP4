@@ -34,8 +34,8 @@ class PersonagemListAdapter()  : RecyclerView.Adapter<PersonagemViewHolder>()
 }
 
 class PersonagemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-    private val emailTextView: TextView = itemView.findViewById(R.id.descricaoTextView)
+    private val nameTextView: TextView = itemView.findViewById(R.id.name_text_view)
+    private val emailTextView: TextView = itemView.findViewById(R.id.description_text_view)
 
     fun bind(personagem: Personagem) {
         nameTextView.text = personagem.name

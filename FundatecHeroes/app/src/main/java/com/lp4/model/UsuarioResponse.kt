@@ -1,4 +1,4 @@
-package com.lp4.api
+package com.lp4.model
 
 data class UsuarioResponse(
 

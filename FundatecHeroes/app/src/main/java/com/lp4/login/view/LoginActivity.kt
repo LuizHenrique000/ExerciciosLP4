@@ -1,18 +1,19 @@
 package com.lp4.login.view
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.lp4.api.Usuario
+import com.google.gson.Gson
 import com.lp4.api.UsuarioClient
+import com.lp4.database.SharedPreferencesUtils
 import com.lp4.home.HomeActivity
 import com.lp4.profile.ProfileActivity
 import com.lp4.databinding.LoginActivityBinding
 import com.lp4.login.presentation.LoginViewModel
 import com.lp4.login.presentation.ViewState
-import com.lp4.model.UsuarioRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ open class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.novoPorAqui.setOnClickListener() {
-            irPAraTeste()
+            irParaATelaDeCadastro()
         }
 
         configLoginButton()
@@ -60,22 +61,24 @@ open class LoginActivity : AppCompatActivity() {
             scope.launch {
                 val apiClient = UsuarioClient()
                 val usuarioResponse = apiClient.getUser(email, password)
-                println(usuarioResponse)
+                if (usuarioResponse != null) {
+                    SharedPreferencesUtils.saveUser(this@LoginActivity, usuarioResponse)
+                }
                 withContext(Dispatchers.Main) {
-                    if (usuarioResponse != null) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Login efetuado com sucesso",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        irParaAHome()
-                    } else {
+                    if (usuarioResponse == null) {
                         Toast.makeText(
                             this@LoginActivity,
                             "Email ou senha inválidos",
                             Toast.LENGTH_SHORT
                         ).show()
                         mostrarErro()
+                    } else {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Login efetuado com sucesso",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        irParaAHome()
                     }
                 }
             }
@@ -95,7 +98,4 @@ open class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
 
-    private fun irPAraTeste() {
-        startActivity(Intent(this, ProfileActivity::class.java))
-    }
 }

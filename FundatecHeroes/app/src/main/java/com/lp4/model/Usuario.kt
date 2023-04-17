@@ -1,7 +1,9 @@
 package com.lp4.model
 
 data class Usuario (
-    val nome: String,
+
+    val name: String,
     val email: String,
-    val senha: String
-)
+    val password: String
+
+    )
