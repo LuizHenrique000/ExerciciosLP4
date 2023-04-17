@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.gson.Gson
@@ -61,6 +62,7 @@ open class LoginActivity : AppCompatActivity() {
             scope.launch {
                 val apiClient = UsuarioClient()
                 val usuarioResponse = apiClient.getUser(email, password)
+                Log.println(Log.INFO, "Login", usuarioResponse.toString())
                 if (usuarioResponse != null) {
                     SharedPreferencesUtils.saveUser(this@LoginActivity, usuarioResponse)
                 }

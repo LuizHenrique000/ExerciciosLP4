@@ -78,11 +78,9 @@ class NewCharacterActivity : AppCompatActivity() {
         val personagem = getPersonagem()
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
-            val usuarioResponse = SharedPreferencesUtils.getUser(this@NewCharacterActivity)
+           val id = SharedPreferencesUtils.getUser(this@NewCharacterActivity)
             val personagemClient = PersonagemClient()
-            if (usuarioResponse != null) {
-                personagemClient.createPersonagem(usuarioResponse.id.toString(), personagem)
-            }
+            personagemClient.createPersonagem(id.toString(), personagem)
             withContext(Dispatchers.Main) {
                 mostrarSucesso()
                 irParaHome()

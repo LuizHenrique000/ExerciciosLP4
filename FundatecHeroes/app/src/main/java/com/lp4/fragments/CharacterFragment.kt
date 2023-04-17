@@ -30,19 +30,15 @@ class CharacterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar = view.findViewById(R.id.progressBar)
-        progressBar.visibility = View.VISIBLE // torna a ProgressBar visível
+        progressBar.visibility = View.VISIBLE
 
         val scope = CoroutineScope(Dispatchers.IO)
 
         scope.launch {
             val sharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
-            val gson = Gson()
-            val jsonUsuarioResponse = sharedPreferences.getString("user", "")
-            val usuarioResponse = gson.fromJson(jsonUsuarioResponse, UsuarioResponse::class.java)
             val apiClient = PersonagemClient()
-            val id = usuarioResponse.id.toString()
-            val personagens = apiClient.getPersonagens(id)
-
+            val id = sharedPreferences.getInt("id", 0)
+            val personagens = apiClient.getPersonagens(id.toString())
             withContext(Dispatchers.Main) {
                 progressBar.visibility = View.GONE
                 val recyclerView: RecyclerView = fragmentHeroiBinding.userList

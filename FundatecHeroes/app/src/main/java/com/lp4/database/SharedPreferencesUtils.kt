@@ -9,20 +9,14 @@ object SharedPreferencesUtils {
     fun saveUser(context: Context, user: UsuarioResponse) {
         val sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val jsonUsuarioResponse = gson.toJson(user)
-        editor.putString("user", jsonUsuarioResponse)
+        editor.putInt("id", user.id)
         editor.apply()
     }
 
-    fun getUser(context: Context): UsuarioResponse? {
+    fun getUser(context: Context): Int {
         val sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val gson = Gson()
-        val jsonUsuarioResponse = sharedPreferences.getString("user", "")
-        if (jsonUsuarioResponse.isNullOrEmpty()) {
-            return null
-        }
-        return gson.fromJson(jsonUsuarioResponse, UsuarioResponse::class.java)
+        val id = sharedPreferences.getInt("id", 0)
+        return id;
     }
 
 
