@@ -15,11 +15,7 @@ import com.lp4.database.SharedPreferencesUtils
 import com.lp4.databinding.ActivityNewCharacterBinding
 import com.lp4.home.HomeActivity
 import com.lp4.model.Personagem
-import com.lp4.model.UsuarioResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class NewCharacterActivity : AppCompatActivity() {
 
@@ -50,6 +46,7 @@ class NewCharacterActivity : AppCompatActivity() {
             if (validarDadosPersonagem()) {
                 viewModel.validarPersonagem(this.getPersonagem())
                 salvarDados()
+                irParaHome()
             } else {
                 mostrarErro()
             }
@@ -75,15 +72,15 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun salvarDados() {
-        val personagem = getPersonagem()
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
-           val id = SharedPreferencesUtils.getUser(this@NewCharacterActivity)
+            val personagem = getPersonagem()
+            val id = SharedPreferencesUtils.getUser(this@NewCharacterActivity)
             val personagemClient = PersonagemClient()
             personagemClient.createPersonagem(id.toString(), personagem)
+            delay(1000)
             withContext(Dispatchers.Main) {
                 mostrarSucesso()
-                irParaHome()
             }
         }
     }

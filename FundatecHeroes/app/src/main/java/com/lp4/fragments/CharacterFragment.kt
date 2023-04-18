@@ -7,14 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.lp4.R
 import com.lp4.adapter.PersonagemListAdapter
 import com.lp4.api.PersonagemClient
-import com.lp4.api.UsuarioClient
-import com.lp4.model.UsuarioResponse
 import com.lp4.databinding.FragmentHeroiBinding
 import com.lp4.domain.CategoryType
 import kotlinx.coroutines.CoroutineScope

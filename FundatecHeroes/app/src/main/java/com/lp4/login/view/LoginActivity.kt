@@ -1,13 +1,12 @@
 package com.lp4.login.view
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.google.gson.Gson
 import com.lp4.api.UsuarioClient
 import com.lp4.database.SharedPreferencesUtils
 import com.lp4.home.HomeActivity
@@ -15,10 +14,7 @@ import com.lp4.profile.ProfileActivity
 import com.lp4.databinding.LoginActivityBinding
 import com.lp4.login.presentation.LoginViewModel
 import com.lp4.login.presentation.ViewState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 open class LoginActivity : AppCompatActivity() {
 
@@ -30,6 +26,7 @@ open class LoginActivity : AppCompatActivity() {
         binding = LoginActivityBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        binding.progressBar.visibility = View.GONE
 
         binding.novoPorAqui.setOnClickListener() {
             irParaATelaDeCadastro()
@@ -67,6 +64,7 @@ open class LoginActivity : AppCompatActivity() {
                     SharedPreferencesUtils.saveUser(this@LoginActivity, usuarioResponse)
                 }
                 withContext(Dispatchers.Main) {
+                    binding.progressBar.visibility = View.VISIBLE
                     if (usuarioResponse == null) {
                         Toast.makeText(
                             this@LoginActivity,
@@ -80,10 +78,10 @@ open class LoginActivity : AppCompatActivity() {
                             "Login efetuado com sucesso",
                             Toast.LENGTH_SHORT
                         ).show()
-                        irParaAHome()
                     }
                 }
             }
+            irParaAHome()
         }
     }
 

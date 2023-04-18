@@ -5,15 +5,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.google.gson.Gson
+import com.lp4.R
 import com.lp4.model.Usuario
 import com.lp4.api.UsuarioClient
 import com.lp4.databinding.ActivityProfileBinding
 import com.lp4.login.view.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -24,6 +23,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        binding.progressBar.visibility = View.GONE
 
         val scope = CoroutineScope(Dispatchers.IO)
 
@@ -31,14 +31,13 @@ class ProfileActivity : AppCompatActivity() {
             val nome = binding.nome.text.toString()
             val email = binding.email.text.toString()
             val senha = binding.senha.text.toString()
-
             val usuario = Usuario(nome, email, senha)
 
             scope.launch {
                 val apiClient = UsuarioClient()
                 val usuarioResponse = apiClient.createUser(usuario)
-                println(usuarioResponse)
                 withContext(Dispatchers.Main) {
+                    binding.progressBar.visibility = View.VISIBLE
                     val sharedPreferences = getSharedPreferences("user_response", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     val gson = Gson()
