@@ -1,8 +1,5 @@
 package com.lp4.api
 
-import android.content.Context
-import com.google.gson.Gson
-import com.lp4.BuildConfig
 import com.lp4.model.Usuario
 import com.lp4.model.UsuarioResponse
 import com.lp4.webservice.RetrofitCLient
@@ -12,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-class UsuarioClient {
+class UserClient {
 
     fun getUser(email: String, password: String): UsuarioResponse? {
         return RetrofitCLient.getRetrofit()

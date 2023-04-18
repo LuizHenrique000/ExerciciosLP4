@@ -1,8 +1,6 @@
 package com.lp4.model
 
-import java.time.LocalDateTime
-
-data class Personagem (
+data class User (
 
     val name: String,
     val description: String,

@@ -1,4 +1,4 @@
-package com.lp4.fragments
+package com.lp4.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.lp4.R
 import com.lp4.adapter.PersonagemListAdapter
-import com.lp4.api.PersonagemClient
+import com.lp4.api.CharacterClient
 import com.lp4.databinding.FragmentHeroiBinding
 import com.lp4.domain.CategoryType
 import kotlinx.coroutines.CoroutineScope
@@ -32,9 +32,9 @@ class CharacterFragment : Fragment() {
 
         scope.launch {
             val sharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
-            val apiClient = PersonagemClient()
+            val apiClient = CharacterClient()
             val id = sharedPreferences.getInt("id", 0)
-            val personagens = apiClient.getPersonagens(id.toString())
+            val personagens = apiClient.getCharacter(id.toString())
             withContext(Dispatchers.Main) {
                 progressBar.visibility = View.GONE
                 val recyclerView: RecyclerView = fragmentHeroiBinding.userList

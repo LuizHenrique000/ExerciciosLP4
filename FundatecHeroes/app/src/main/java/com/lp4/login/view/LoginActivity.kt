@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.lp4.api.UsuarioClient
+import com.lp4.api.UserClient
 import com.lp4.database.SharedPreferencesUtils
 import com.lp4.home.HomeActivity
 import com.lp4.profile.ProfileActivity
@@ -20,6 +20,9 @@ open class LoginActivity : AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var binding: LoginActivityBinding
+    private val sharedPreferences: SharedPreferencesUtils by lazy {
+        SharedPreferencesUtils()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,11 +60,10 @@ open class LoginActivity : AppCompatActivity() {
             val scope = CoroutineScope(Dispatchers.IO)
 
             scope.launch {
-                val apiClient = UsuarioClient()
+                val apiClient = UserClient()
                 val usuarioResponse = apiClient.getUser(email, password)
-                Log.println(Log.INFO, "Login", usuarioResponse.toString())
                 if (usuarioResponse != null) {
-                    SharedPreferencesUtils.saveUser(this@LoginActivity, usuarioResponse)
+                    sharedPreferences.saveUser(this@LoginActivity, usuarioResponse)
                 }
                 withContext(Dispatchers.Main) {
                     binding.progressBar.visibility = View.VISIBLE

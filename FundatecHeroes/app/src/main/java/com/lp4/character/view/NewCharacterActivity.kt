@@ -1,26 +1,27 @@
 package com.lp4.character.view
 
 import android.R
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
-import com.lp4.api.PersonagemClient
+import com.lp4.api.CharacterClient
 import com.lp4.character.presentation.NewCharacterViewModel
 import com.lp4.database.SharedPreferencesUtils
 import com.lp4.databinding.ActivityNewCharacterBinding
 import com.lp4.home.HomeActivity
-import com.lp4.model.Personagem
+import com.lp4.model.User
 import kotlinx.coroutines.*
 
 class NewCharacterActivity : AppCompatActivity() {
 
     private val viewModel: NewCharacterViewModel by viewModels()
     private lateinit var binding: ActivityNewCharacterBinding
+    private val sharedPreferences: SharedPreferencesUtils by lazy {
+        SharedPreferencesUtils()
+    }
 
     val comics = arrayOf("Editora", "DC", "MARVEL")
     val type = arrayOf("Tipo", "HERO", "VILLAIN")
@@ -43,10 +44,10 @@ class NewCharacterActivity : AppCompatActivity() {
 
     private fun configButtonCriarPersonagem() {
         binding.buttonEnviar.setOnClickListener() {
-            if (validarDadosPersonagem()) {
-                viewModel.validarPersonagem(this.getPersonagem())
-                salvarDados()
-                irParaHome()
+            if (validateCharacter()) {
+                viewModel.validarPersonagem(this.getCharacter())
+                SaveData()
+                goToHome()
             } else {
                 mostrarErro()
             }
@@ -67,18 +68,18 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun mostrarSucesso() {
-        salvarDados()
+        SaveData()
         Toast.makeText(this, "Personagem criado com sucesso", Toast.LENGTH_SHORT).show()
     }
 
-    private fun salvarDados() {
+    private fun SaveData() {
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
-            val personagem = getPersonagem()
-            val id = SharedPreferencesUtils.getUser(this@NewCharacterActivity)
-            val personagemClient = PersonagemClient()
-            personagemClient.createPersonagem(id.toString(), personagem)
-            delay(1000)
+            val characterClient = CharacterClient()
+            characterClient.createCharacter(
+                sharedPreferences.getUser(this@NewCharacterActivity).toString(),
+                getCharacter()
+            )
             withContext(Dispatchers.Main) {
                 mostrarSucesso()
             }
@@ -86,12 +87,12 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
 
-    private fun irParaHome() {
+    private fun goToHome() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
 
-    private fun getPersonagem(): Personagem {
+    private fun getCharacter(): User {
         val nome = binding.inputNome.text.toString()
         val descricao = binding.inputDescricao.text.toString()
         val idade = binding.inputIdade.text.toString()
@@ -99,16 +100,16 @@ class NewCharacterActivity : AppCompatActivity() {
         val data = binding.inputData.text.toString()
         val editora = binding.spinnerMarvelDc.selectedItem.toString()
         val tipo = binding.spinnerHeroiVilao.selectedItem.toString()
-        val personagem = Personagem(nome, descricao, link, editora, tipo, idade.toDouble(), data)
-        return personagem
+        val user = User(nome, descricao, link, editora, tipo, idade.toDouble(), data)
+        return user
     }
 
-    private fun validarDadosPersonagem(): Boolean {
-        val personagem = getPersonagem()
-        return !(personagem.name.isBlank() || personagem.description.isBlank() || personagem.age.toString()
+    private fun validateCharacter(): Boolean {
+        val character = getCharacter()
+        return !(character.name.isBlank() || character.description.isBlank() || character.age.toString()
             .isBlank() ||
-                personagem.image.isBlank() || personagem.date.isBlank() || personagem.universeType == "Editora" ||
-                personagem.characterType == "Tipo")
+                character.image.isBlank() || character.date.isBlank() || character.universeType == "Editora" ||
+                character.characterType == "Tipo")
     }
 
 }

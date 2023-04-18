@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.lp4.model.UsuarioResponse
 
-object SharedPreferencesUtils {
+class SharedPreferencesUtils {
 
     fun saveUser(context: Context, user: UsuarioResponse) {
         val sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE)

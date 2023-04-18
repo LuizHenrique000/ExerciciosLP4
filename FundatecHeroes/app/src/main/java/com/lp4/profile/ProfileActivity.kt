@@ -1,4 +1,3 @@
-
 package com.lp4.profile
 
 import android.content.Context
@@ -7,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.google.gson.Gson
-import com.lp4.R
 import com.lp4.model.Usuario
-import com.lp4.api.UsuarioClient
+import com.lp4.api.UserClient
 import com.lp4.databinding.ActivityProfileBinding
 import com.lp4.login.view.LoginActivity
 import kotlinx.coroutines.*
@@ -25,28 +23,52 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(view)
         binding.progressBar.visibility = View.GONE
 
-        val scope = CoroutineScope(Dispatchers.IO)
-
         binding.buttomCadastrar.setOnClickListener {
             val nome = binding.nome.text.toString()
             val email = binding.email.text.toString()
             val senha = binding.senha.text.toString()
             val usuario = Usuario(nome, email, senha)
 
-            scope.launch {
-                val apiClient = UsuarioClient()
+            CoroutineScope(Dispatchers.IO).launch {
+                val apiClient = UserClient()
                 val usuarioResponse = apiClient.createUser(usuario)
                 withContext(Dispatchers.Main) {
                     binding.progressBar.visibility = View.VISIBLE
-                    val sharedPreferences = getSharedPreferences("user_response", Context.MODE_PRIVATE)
+                    validateAndSaveUser()
+                    val sharedPreferences =
+                        getSharedPreferences("user_response", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     val gson = Gson()
                     val jsonUsuarioResponse = gson.toJson(usuarioResponse)
                     editor.putString("user_response", jsonUsuarioResponse)
                     editor.apply()
-                    val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this@ProfileActivity, LoginActivity::class.java))
                 }
+            }
+
+        }
+    }
+
+    private fun validateAndSaveUser() {
+        val nome = binding.nome.text.toString()
+        val email = binding.email.text.toString()
+        val senha = binding.senha.text.toString()
+        val usuario = Usuario(nome, email, senha)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val apiClient = UserClient()
+            val usuarioResponse = apiClient.createUser(usuario)
+            withContext(Dispatchers.Main) {
+                binding.progressBar.visibility = View.VISIBLE
+                validateAndSaveUser()
+                val sharedPreferences =
+                    getSharedPreferences("user_response", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                val gson = Gson()
+                val jsonUsuarioResponse = gson.toJson(usuarioResponse)
+                editor.putString("user_response", jsonUsuarioResponse)
+                editor.apply()
+                startActivity(Intent(this@ProfileActivity, LoginActivity::class.java))
             }
 
         }

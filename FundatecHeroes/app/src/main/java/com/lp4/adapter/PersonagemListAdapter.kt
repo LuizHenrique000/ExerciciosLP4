@@ -8,16 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lp4.R
-import com.lp4.model.Personagem
+import com.lp4.model.User
 
 class PersonagemListAdapter()  : RecyclerView.Adapter<PersonagemViewHolder>()
 {
 
-    private val personagemList : MutableList<Personagem> = mutableListOf();
+    private val userList : MutableList<User> = mutableListOf();
 
-    fun setItems(personagens: List<Personagem>){
-        personagemList.clear()
-        personagemList.addAll(personagens)
+    fun setItems(personagens: List<User>){
+        userList.clear()
+        userList.addAll(personagens)
         notifyDataSetChanged()
     }
 
@@ -28,7 +28,7 @@ class PersonagemListAdapter()  : RecyclerView.Adapter<PersonagemViewHolder>()
     }
 
     override fun onBindViewHolder(holder: PersonagemViewHolder, position: Int) {
-        val personagem = personagemList[position]
+        val personagem = userList[position]
         holder.bind(personagem)
 
         Glide.with(holder.itemView.context)
@@ -37,7 +37,7 @@ class PersonagemListAdapter()  : RecyclerView.Adapter<PersonagemViewHolder>()
     }
 
 
-    override fun getItemCount() = personagemList.size
+    override fun getItemCount() = userList.size
 }
 
 class PersonagemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -45,8 +45,8 @@ class PersonagemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val emailTextView: TextView = itemView.findViewById(R.id.description_text_view)
     val heroImageView: ImageView = itemView.findViewById(R.id.hero_image)
 
-    fun bind(personagem: Personagem) {
-        nameTextView.text = personagem.name
-        emailTextView.text = personagem.description
+    fun bind(user: User) {
+        nameTextView.text = user.name
+        emailTextView.text = user.description
     }
 }
