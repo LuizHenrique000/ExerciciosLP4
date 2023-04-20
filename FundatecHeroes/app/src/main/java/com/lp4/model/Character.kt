@@ -1,6 +1,6 @@
 package com.lp4.model
 
-data class User (
+data class Character (
 
     val name: String,
     val description: String,

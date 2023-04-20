@@ -12,7 +12,7 @@ import com.lp4.character.presentation.NewCharacterViewModel
 import com.lp4.database.SharedPreferencesUtils
 import com.lp4.databinding.ActivityNewCharacterBinding
 import com.lp4.home.HomeActivity
-import com.lp4.model.User
+import com.lp4.model.Character
 import kotlinx.coroutines.*
 
 class NewCharacterActivity : AppCompatActivity() {
@@ -31,8 +31,11 @@ class NewCharacterActivity : AppCompatActivity() {
         binding = ActivityNewCharacterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupSpinners()
-        configButtonCriarPersonagem()
         observeViewModel()
+
+        binding.buttonEnviar.setOnClickListener {
+            configButtonCriarPersonagem()
+        }
     }
 
     private fun setupSpinners() {
@@ -43,14 +46,12 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun configButtonCriarPersonagem() {
-        binding.buttonEnviar.setOnClickListener() {
-            if (validateCharacter()) {
-                viewModel.validarPersonagem(this.getCharacter())
-                SaveData()
-                goToHome()
-            } else {
-                mostrarErro()
-            }
+        if (validateCharacter()) {
+            viewModel.validarPersonagem(this.getCharacter())
+            SaveData()
+            goToHome()
+        } else {
+            mostrarErro()
         }
     }
 
@@ -64,12 +65,11 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun mostrarErro() {
-        Toast.makeText(this, "Preenca todos os campos", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
     }
 
     private fun mostrarSucesso() {
-        SaveData()
-        Toast.makeText(this, "Personagem criado com sucesso", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Personagem criado com sucesso!", Toast.LENGTH_SHORT).show()
     }
 
     private fun SaveData() {
@@ -80,19 +80,14 @@ class NewCharacterActivity : AppCompatActivity() {
                 sharedPreferences.getUser(this@NewCharacterActivity).toString(),
                 getCharacter()
             )
-            withContext(Dispatchers.Main) {
-                mostrarSucesso()
-            }
         }
     }
 
-
     private fun goToHome() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+       startActivity(Intent(this, HomeActivity::class.java))
     }
 
-    private fun getCharacter(): User {
+    private fun getCharacter(): Character {
         val nome = binding.inputNome.text.toString()
         val descricao = binding.inputDescricao.text.toString()
         val idade = binding.inputIdade.text.toString()
@@ -100,8 +95,7 @@ class NewCharacterActivity : AppCompatActivity() {
         val data = binding.inputData.text.toString()
         val editora = binding.spinnerMarvelDc.selectedItem.toString()
         val tipo = binding.spinnerHeroiVilao.selectedItem.toString()
-        val user = User(nome, descricao, link, editora, tipo, idade.toDouble(), data)
-        return user
+        return Character(nome, descricao, link, editora, tipo, idade.toDouble(), data)
     }
 
     private fun validateCharacter(): Boolean {
@@ -111,5 +105,4 @@ class NewCharacterActivity : AppCompatActivity() {
                 character.image.isBlank() || character.date.isBlank() || character.universeType == "Editora" ||
                 character.characterType == "Tipo")
     }
-
 }

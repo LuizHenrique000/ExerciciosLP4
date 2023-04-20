@@ -3,7 +3,6 @@ package com.lp4.login.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -14,10 +13,12 @@ import com.lp4.profile.ProfileActivity
 import com.lp4.databinding.LoginActivityBinding
 import com.lp4.login.presentation.LoginViewModel
 import com.lp4.login.presentation.ViewState
+import com.lp4.model.Usuario
 import kotlinx.coroutines.*
 
 open class LoginActivity : AppCompatActivity() {
 
+    private val scope = CoroutineScope(Dispatchers.IO)
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var binding: LoginActivityBinding
     private val sharedPreferences: SharedPreferencesUtils by lazy {
@@ -42,7 +43,7 @@ open class LoginActivity : AppCompatActivity() {
                 ViewState.ShowError -> mostrarErro()
                 ViewState.ShowErrorEmail -> {}
                 ViewState.ShowErrorPassword -> {}
-                ViewState.ShowSuccess -> irParaAHome()
+                ViewState.ShowSuccess -> {}
                 else -> {}
             }
         }
@@ -50,46 +51,47 @@ open class LoginActivity : AppCompatActivity() {
 
     private fun configLoginButton() {
         binding.buttomLogin.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             viewModel.validarInputs(
                 email = binding.email.text.toString(),
-                senha = binding.senha.text.toString(),
+                senha = binding.senha.text.toString()
             )
-            val email = binding.email.text.toString()
-            val password = binding.senha.text.toString()
+            if (viewModel.viewState.value == ViewState.ShowSuccess) {
+                salvarUsuario()
+            }
+        }
+    }
 
-            val scope = CoroutineScope(Dispatchers.IO)
-
-            scope.launch {
-                val apiClient = UserClient()
-                val usuarioResponse = apiClient.getUser(email, password)
-                if (usuarioResponse != null) {
-                    sharedPreferences.saveUser(this@LoginActivity, usuarioResponse)
-                }
-                withContext(Dispatchers.Main) {
-                    binding.progressBar.visibility = View.VISIBLE
-                    if (usuarioResponse == null) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Email ou senha inválidos",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        mostrarErro()
-                    } else {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Login efetuado com sucesso",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+    private fun salvarUsuario() {
+        val email = binding.email.text.toString()
+        val senha = binding.senha.text.toString()
+        scope.launch {
+            val apiClient = UserClient()
+            val usuarioResponse = apiClient.getUser(email, senha)
+            if (usuarioResponse != null) {
+                sharedPreferences.saveUser(this@LoginActivity, usuarioResponse)
+            }
+            withContext(Dispatchers.Main) {
+                if (usuarioResponse == null) {
+                    mostrarErro()
+                    binding.progressBar.visibility = View.GONE
+                } else {
+                    mostrarSucesso()
+                    binding.progressBar.visibility = View.GONE
+                    irParaAHome()
                 }
             }
-            irParaAHome()
         }
     }
 
     private fun mostrarErro() {
+        Toast.makeText(this@LoginActivity, "Email ou senha inválidos", Toast.LENGTH_SHORT).show()
         binding.email.setError("Email Inválido")
         binding.senha.setError("Senha Inválida")
+    }
+
+    private fun mostrarSucesso() {
+        Toast.makeText(this@LoginActivity, "Login efetuado com sucesso", Toast.LENGTH_SHORT).show()
     }
 
     private fun irParaAHome() {
