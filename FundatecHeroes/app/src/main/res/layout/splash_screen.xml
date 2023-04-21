@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/white">
+    >
 
     <ImageView
         android:id="@+id/splash_logo"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:text="Fundatec Heroes"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
